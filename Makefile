@@ -1,5 +1,5 @@
 build: download
-	go build -o bookly cmd/stend/main.go
+	go build -o bookly.exe cmd/stend/main.go
 
 download:
 	go mod download && go mod verify
