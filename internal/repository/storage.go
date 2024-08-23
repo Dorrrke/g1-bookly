@@ -204,6 +204,13 @@ func (db *DBStorage) DeleteBooks() error {
 	return transaction.Commit(ctx)
 }
 
+func (db *DBStorage) CheckDBConnect(ctx context.Context) error {
+	if err := db.conn.Ping(ctx); err != nil {
+		return errors.New("error while checking connection")
+	}
+	return nil
+}
+
 func Migrations(dbAddr, migrationsPath string, zlog *zerolog.Logger) error {
 	migratePath := fmt.Sprintf("file://%s", migrationsPath) //nolint: perfsprint //todo
 	m, err := migrate.New(migratePath, dbAddr)

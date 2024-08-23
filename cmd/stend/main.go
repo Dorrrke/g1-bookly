@@ -44,6 +44,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	if err := storage.CheckDBConnect(context.Background()); err != nil {
+		panic(err)
+	}
 	group, gCtx := errgroup.WithContext(ctx)
 	srv := server.New(gCtx, &storage, zlog)
 	group.Go(func() error {
