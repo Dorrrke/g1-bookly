@@ -44,7 +44,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	if err := storage.CheckDBConnect(context.Background()); err != nil {
+	if err = storage.CheckDBConnect(context.Background()); err != nil {
 		panic(err)
 	}
 	group, gCtx := errgroup.WithContext(ctx)
