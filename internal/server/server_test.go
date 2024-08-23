@@ -75,7 +75,7 @@ func TestGetUsersHandler(t *testing.T) {
 			m := mock_server.NewMockRepository(ctrl)
 			defer ctrl.Finish()
 			m.EXPECT().GetAllUsers().Return(tc.users, tc.err)
-			srv.Db = m
+			srv.DB = m
 			req := resty.New().R()
 			req.Method = tc.method
 			req.URL = httpSrv.URL + tc.request
@@ -154,7 +154,7 @@ func TestRegisterHandler(t *testing.T) {
 				m := mock_server.NewMockRepository(ctrl)
 				defer ctrl.Finish()
 				m.EXPECT().InsertUser(gomock.Any()).Return(1, tc.err)
-				srv.Db = m
+				srv.DB = m
 			}
 			req := resty.New().R()
 			req.Method = tc.method
