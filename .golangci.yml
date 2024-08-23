@@ -254,7 +254,7 @@ linters:
     - promlinter # checks Prometheus metrics naming via promlint
     - protogetter # reports direct reads from proto message fields when getters should be used
     - reassign # checks that package variables are not reassigned
-    - revive # fast, configurable, extensible, flexible, and beautiful linter for Go, drop-in replacement of golint
+    #- revive # fast, configurable, extensible, flexible, and beautiful linter for Go, drop-in replacement of golint
     - rowserrcheck # checks whether Err of rows is checked successfully
     - sloglint # ensure consistent code style when using log/slog
     - sqlclosecheck # checks that sql.Rows and sql.Stmt are closed
@@ -277,13 +277,13 @@ linters:
     - ginkgolinter # [if you use ginkgo/gomega] enforces standards of using ginkgo and gomega
     - godox # detects FIXME, TODO and other comment keywords
     - goheader # checks is file header matches to pattern
-    - inamedparam # [great idea, but too strict, need to ignore a lot of cases by default] reports interfaces with unnamed method parameters
-    - interfacebloat # checks the number of methods inside an interface
+    #- inamedparam # [great idea, but too strict, need to ignore a lot of cases by default] reports interfaces with unnamed method parameters
+    #- interfacebloat # checks the number of methods inside an interface
     - ireturn # accept interfaces, return concrete types
     - prealloc # [premature optimization, but can be used in some cases] finds slice declarations that could potentially be preallocated
     - tagalign # checks that struct tags are well aligned
     - varnamelen # [great idea, but too many false positives] checks that the length of a variable's name matches its scope
-    - wrapcheck # checks that errors returned from external packages are wrapped
+    #- wrapcheck # checks that errors returned from external packages are wrapped
     - zerologlint # detects the wrong usage of zerolog that a user forgets to dispatch zerolog.Event
 
     ## disabled

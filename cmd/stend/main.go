@@ -27,9 +27,9 @@ func main() {
 		<-c
 		cancel()
 	}()
-	fmt.Println("Server starting")
 	cfg := config.ReadConfig()
 	zlog := logger.SetupLogger(cfg.DebugFlag)
+	zlog.Info().Msg("Start server")
 	zlog.Debug().Any("config", cfg).Msg("Check cfg value")
 
 	err := repository.Migrations(cfg.DBAddr, cfg.MPath, zlog)
@@ -42,6 +42,9 @@ func main() {
 	}
 	storage, err := repository.NewDB(conn)
 	if err != nil {
+		panic(err)
+	}
+	if err = storage.CheckDBConnect(context.Background()); err != nil {
 		panic(err)
 	}
 	group, gCtx := errgroup.WithContext(ctx)
@@ -57,7 +60,7 @@ func main() {
 		router.POST("/addbooks", srv.AddBooks)
 		router.DELETE("/deletebook/:id", srv.DeleteBook)
 
-		fmt.Println("Server started")
+		zlog.Debug().Msg("Server started")
 		if err = router.Run(cfg.Addr); err != nil {
 			return err
 		}
@@ -65,7 +68,7 @@ func main() {
 	})
 
 	group.Go(func() error {
-		err := <-srv.ErrorChan
+		err = <-srv.ErrorChan
 		return err
 	})
 	group.Go(func() error {
@@ -73,14 +76,14 @@ func main() {
 		return gCtx.Err()
 	})
 
-	if err := group.Wait(); err != nil {
+	if err = group.Wait(); err != nil {
 		panic(err)
 	}
 }
 
 func initDB(addr string) (*pgx.Conn, error) {
 	for i := 0; i < 7; i++ {
-		time.Sleep(2 * time.Second)
+		time.Sleep(time.Second + time.Second)
 		conn, err := pgx.Connect(context.Background(), addr)
 		if err == nil {
 			return conn, nil

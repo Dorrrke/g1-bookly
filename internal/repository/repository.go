@@ -16,7 +16,7 @@ func New() *Repository {
 }
 
 func (repo *Repository) GetAllUsers() ([]models.User, error) {
-	var users []models.User
+	users := []models.User{}
 	for _, user := range repo.db {
 		users = append(users, user)
 	}
