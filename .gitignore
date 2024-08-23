@@ -1,2 +1,10 @@
 *.out
 *.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+vendor/
+
+*.test
